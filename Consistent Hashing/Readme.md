@@ -1,10 +1,10 @@
-# 🧠 Consistent Hashing API
+# Consistent Hashing
 
 This project implements **Consistent Hashing** with virtual nodes, exposing an HTTP API to manage and query a distributed hash ring.
 
 ---
 
-## ❓ What is Consistent Hashing?
+## What is Consistent Hashing?
 
 **Consistent Hashing** is a technique used to distribute keys across a dynamic set of nodes (like servers or databases) in a way that minimizes re-distribution when nodes are added or removed.
 
@@ -12,18 +12,18 @@ Instead of placing keys directly on nodes, consistent hashing maps both keys and
 
 ---
 
-## 🚫 Problem with Simple Modulo Hashing
+## Problem with Simple Modulo Hashing
 
 Using modulo (e.g., `hash(key) % N`) for assigning keys to nodes has a critical flaw:
 
 - When you **add or remove a node**, **most keys are remapped**.
 - This leads to **huge data movement**, cache invalidation, and poor scalability.
 
-✅ **Consistent Hashing** fixes this by ensuring **only a small portion of keys need to be moved** when nodes change.
+**Consistent Hashing** fixes this by ensuring **only a small portion of keys need to be moved** when nodes change.
 
 ---
 
-## 🤔 Why Is It Required?
+## Why Is It Required?
 
 Consistent Hashing is essential in distributed systems to:
 
@@ -34,7 +34,7 @@ Consistent Hashing is essential in distributed systems to:
 
 ---
 
-## 🌐 Where Is It Used?
+## Where Is It Used?
 
 Consistent Hashing is widely adopted in distributed systems:
 
@@ -46,9 +46,9 @@ Consistent Hashing is widely adopted in distributed systems:
 
 ---
 
-## ⚙️ Main Logic
+## Main Logic
 
-### 🔁 `hashring` Package
+### `hashring` 
 
 - Implements a **consistent hash ring** with configurable **replicas** (virtual nodes) per physical node.
 - Keys and nodes are both hashed using CRC32.
@@ -58,14 +58,14 @@ Consistent Hashing is widely adopted in distributed systems:
   - Looking up which node a key maps to
   - Listing all active nodes
 
-### 🌐 `api` Package
+### `api` 
 
 - A **wrapper around the hashring logic**, exposed as REST APIs.
 - Built using [Gorilla Mux](https://github.com/gorilla/mux).
 
 ---
 
-## 🔧 What Can You Do?
+## Commands to run after you run the server.
 
 
 # Add Node
