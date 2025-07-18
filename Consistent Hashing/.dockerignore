@@ -1,0 +1,7 @@
+# .dockerignore
+.git
+*.md
+*.log
+*.test
+vendor
+
