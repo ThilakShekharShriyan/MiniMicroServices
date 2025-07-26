@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	hashring "github.com/thilakshekharshriyan/hashring"
+	"github.com/thilakshekharshriyan/hashring"
 )
 
 

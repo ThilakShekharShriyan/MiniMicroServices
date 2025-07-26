@@ -6,6 +6,8 @@ import (
 	"sort"
 	"strconv"
 	"sync"
+
+	"github.com/thilakshekharshriyan/nodemetrics"
 )
 
 // HashRing represents a consistent hashing ring
@@ -52,6 +54,11 @@ func (h *HashRing) Add(nodes ...string) {
 	// Sort the keys to maintain ring order
 	sort.Slice(h.keys, func(i, j int) bool { return h.keys[i] < h.keys[j] })
 	log.Printf("Ring now has %d hash keys", len(h.keys))
+
+	nodemetrics.NodeAdditions.Inc()
+	nodemetrics.NodeCount.Set(float64(len(h.nodeSet)))
+	
+	
 }
 
 // Remove deletes a node and all its virtual nodes from the ring.
@@ -76,6 +83,10 @@ func (h *HashRing) Remove(node string) {
 	}
 	log.Printf("Removed node %s and its replicas", node)
 	log.Printf("Ring now has %d hash keys", len(h.keys))
+
+	nodemetrics.NodeRemovals.Inc()
+nodemetrics.NodeCount.Set(float64(len(h.nodeSet)))
+
 }
 
 // Get returns the closest node in the ring responsible for the given key.
@@ -91,6 +102,12 @@ func (h *HashRing) Get(key string) string {
 	if idx == len(h.keys) {
 		idx = 0 // Wrap around to the first node
 	}
+
+	node := h.hashMap[h.keys[idx]]
+nodemetrics.KeyLookups.WithLabelValues(node).Inc()
+return node
+
+
 	return h.hashMap[h.keys[idx]]
 }
 
